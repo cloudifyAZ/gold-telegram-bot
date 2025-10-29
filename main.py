@@ -101,7 +101,9 @@ def run_telegram():
     app_bot.add_handler(CommandHandler("start", start))
     app_bot.add_handler(CommandHandler("rapor", report))
     app_bot.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    asyncio.run(app_bot.run_polling())
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(app_bot.run_polling())
 
 # === Flask Thread ===
 def run_flask():
@@ -111,4 +113,5 @@ def run_flask():
 if __name__ == "__main__":
     threading.Thread(target=run_telegram).start()
     threading.Thread(target=run_flask).start()
+
 
