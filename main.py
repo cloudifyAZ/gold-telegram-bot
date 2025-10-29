@@ -111,7 +111,8 @@ def run_flask():
 
 # === Çalıştır ===
 if __name__ == "__main__":
-    threading.Thread(target=run_telegram).start()
+    threading.Thread(target=run_telegram, daemon=True).start()
     threading.Thread(target=run_flask).start()
+
 
 
