@@ -1,6 +1,7 @@
 from flask import Flask, request
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
+import asyncio
 import threading
 import json
 
@@ -100,7 +101,7 @@ def run_telegram():
     app_bot.add_handler(CommandHandler("start", start))
     app_bot.add_handler(CommandHandler("rapor", report))
     app_bot.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
-    app_bot.run_polling()
+    asyncio.run(app_bot.run_polling())
 
 # === Flask Thread ===
 def run_flask():
@@ -110,3 +111,4 @@ def run_flask():
 if __name__ == "__main__":
     threading.Thread(target=run_telegram).start()
     threading.Thread(target=run_flask).start()
+
